@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Practice1</string>
+    <string name="login_activity_title">The CourseApp</string>
+    <string name="user_name">Username</string>
+    <string name="pwd">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="register_activity_title">Register Form</string>
+    <string name="teacher">Teacher</string>
+    <string name="student">Student</string>
+
+    <string name="teacher_activity_title">Welcome Username</string>
+    <string name="subject">Subject</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+
+
+</resources>
