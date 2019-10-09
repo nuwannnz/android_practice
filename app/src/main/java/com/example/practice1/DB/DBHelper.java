@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import com.example.practice1.Message;
+import com.example.practice1.User;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return newRowID;
     }
 
+    public long insertUser(User user){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.putNull(DBContract.UserEntry.COLUMN_NAME_ID);
+        values.put(DBContract.UserEntry.COLUMN_NAME_USERNAME, user.getUserName());
+        values.put(DBContract.UserEntry.COLUMN_NAME_PASSWORD, user.getPwd());
+        values.put(DBContract.UserEntry.COLUMN_NAME_TYPE, user.getUserType());
+
+        long newRowID = db.insert(DBContract.UserEntry.TABLE_NAME, null, values);
+
+        return newRowID;
+    }
+
     public ArrayList<Message> getAllMessage() {
 
         SQLiteDatabase db = getReadableDatabase();
@@ -65,7 +80,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 null
         );
 
-        ArrayList<Message> msgList = new ArrayList<>();
+        ArrayList<Message> msgList = new ArrayList<Message>();
         while (cursor.moveToNext()){
             Message msg = new Message(
                     cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.MessageEntry.COLUMN_NAME_ID)),
@@ -76,6 +91,43 @@ public class DBHelper extends SQLiteOpenHelper {
             msgList.add(msg);
         }
         return msgList;
+    }
+
+    public ArrayList<User> login(String userName, String password) {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] projection = {
+                DBContract.UserEntry.COLUMN_NAME_ID,
+                DBContract.UserEntry.COLUMN_NAME_USERNAME,
+                DBContract.UserEntry.COLUMN_NAME_PASSWORD,
+                DBContract.UserEntry.COLUMN_NAME_TYPE
+        };
+    String selection = DBContract.UserEntry.COLUMN_NAME_USERNAME + " = ? AND" + DBContract.UserEntry.COLUMN_NAME_PASSWORD + " = ?";
+    String selectionArgs[] = {userName, password};
+
+
+        Cursor cursor = db.query(
+                DBContract.UserEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+                );
+
+        ArrayList<User> userList = new ArrayList<User>();
+        while (cursor.moveToNext()){
+            User user = new User(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_USERNAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_PASSWORD)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_TYPE))
+            );
+            userList.add(user);
+        }
+        return userList;
     }
 
 

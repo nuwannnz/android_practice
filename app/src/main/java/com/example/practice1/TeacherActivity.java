@@ -7,15 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.practice1.DB.DBHelper;
 
 public class TeacherActivity extends AppCompatActivity {
 
-    private EditText subjectTextView;
-    private EditText msgTextView;
+    private EditText subjectEditText;
+    private EditText msgEditText;
     private Button sendButton;
+
+    private String userName;
 
     DBHelper db;
 
@@ -24,8 +25,8 @@ public class TeacherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
-        subjectTextView = findViewById(R.id.subjectTitle);
-        msgTextView = findViewById(R.id.msg);
+        subjectEditText = findViewById(R.id.subjectTitle);
+        msgEditText = findViewById(R.id.msg);
         sendButton = findViewById(R.id.sendBtn);
         db = new DBHelper(this);
 
@@ -38,7 +39,7 @@ public class TeacherActivity extends AppCompatActivity {
     }
 
     public void sendMsg(){
-        Message msg = new Message(-1, "cat", subjectTextView.getText().toString(), msgTextView.getText().toString());
+        Message msg = new Message(-1, "cat", subjectEditText.getText().toString(), msgEditText.getText().toString());
 
         long i = db.insertMessage(msg);
         if(i != -1) {
