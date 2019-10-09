@@ -7,7 +7,7 @@
     tools:context=".MessageActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/subjectTitle"
         android:layout_width="179dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -24,7 +24,7 @@
 
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/msg"
         android:layout_width="394dp"
         android:layout_height="191dp"
         android:layout_marginStart="8dp"
@@ -32,6 +32,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:editable="false"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/message"
@@ -39,6 +40,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/subjectTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

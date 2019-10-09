@@ -10,10 +10,13 @@
     <string name="teacher">Teacher</string>
     <string name="student">Student</string>
 
-    <string name="teacher_activity_title">Welcome Username</string>
     <string name="subject">Subject</string>
     <string name="message">Message</string>
     <string name="send">Send</string>
+
+    <string name="msgNotify">You have a new Message.</string>
+    <string name="view">View</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

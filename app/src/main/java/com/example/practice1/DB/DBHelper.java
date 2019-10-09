@@ -93,7 +93,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return msgList;
     }
 
-    public ArrayList<User> login(String userName, String password) {
+    public User login(String userName, String password) {
 
         SQLiteDatabase db = getReadableDatabase();
 
@@ -103,7 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBContract.UserEntry.COLUMN_NAME_PASSWORD,
                 DBContract.UserEntry.COLUMN_NAME_TYPE
         };
-    String selection = DBContract.UserEntry.COLUMN_NAME_USERNAME + " = ? AND" + DBContract.UserEntry.COLUMN_NAME_PASSWORD + " = ?";
+    String selection = DBContract.UserEntry.COLUMN_NAME_USERNAME + " = ? AND " + DBContract.UserEntry.COLUMN_NAME_PASSWORD + " = ?";
     String selectionArgs[] = {userName, password};
 
 
@@ -117,17 +117,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 null
                 );
 
-        ArrayList<User> userList = new ArrayList<User>();
-        while (cursor.moveToNext()){
+        if(cursor.getCount() == 0){
+            return null;
+        }else{
+            cursor.moveToNext();
             User user = new User(
                     cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_USERNAME)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_PASSWORD)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_TYPE))
-            );
-            userList.add(user);
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_TYPE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.UserEntry.COLUMN_NAME_PASSWORD))
+                    );
+
+            return user;
         }
-        return userList;
+
+
     }
 
 

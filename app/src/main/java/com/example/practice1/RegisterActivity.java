@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                registerUser();
             }
         });
     }
@@ -61,9 +62,12 @@ public class RegisterActivity extends AppCompatActivity {
             toast.show();
         }
 
-        User user = new User(-1, usernameEditText.getText().toString(), "type", passwordEditText.getText().toString());
+        Log.i("TYPE", type);
+        User user = new User(-1, usernameEditText.getText().toString(), type, passwordEditText.getText().toString());
 
         db.insertUser(user);
 
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
